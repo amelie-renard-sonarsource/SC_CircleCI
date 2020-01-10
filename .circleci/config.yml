@@ -14,19 +14,25 @@ jobs:
           command: 'apt-get update && apt-get install -y gcc g++'
       - run:
           name: Install CMAKE
-          command: 'apt-get update && sudo apt-get install -y cmake'
-      - run:
-          name: Creating Build Files
-          command: 'cmake -H. -Bbuild'
-      - run:
-          name: Creating Binary Files
-          command: 'cmake --build build'
+          command: 'apt-get update && sudo apt-get install -y cmake'          
       - run:
           name: Install Curl
           command: 'apt-get update && sudo apt-get install -y curl'          
       - run:
           name: Install Unzip
           command: 'apt-get update && sudo apt-get install -y unzip'
+      - run:
+          name: Download build-wrapper
+          command: curl 'https://sonarcloud.io/static/cpp/build-wrapper-linux-x86.zip' --output build-wrapper-linux-x86.zip
+      - run:
+          name: Unzip build-wrapper
+          command: unzip build-wrapper-linux-x86.zip
+      - run:
+          name: Creating Build Files
+          command: 'cmake -H. -Bbuild'
+      - run:
+          name: Creating Binary Files
+          command: 'build-wrapper-linux-x86/build-wrapper-linux-x86-64 --out-dir build_wrapper_output_directory cmake --build build'
       - sonarcloud/scan
 
 orbs:

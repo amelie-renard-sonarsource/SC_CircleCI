@@ -54,7 +54,7 @@ jobs:
           name: Build
           command: 'build-wrapper-linux-x86/build-wrapper-linux-x86-64 --out-dir build_wrapper_output_directory g++ -o main main.cpp -std=c++17'
       - run: ./main
-      -sonarcloud/scan
+      - sonarcloud/scan
 
 orbs:
   sonarcloud: sonarsource/sonarcloud@1.0.1

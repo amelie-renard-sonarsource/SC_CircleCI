@@ -36,9 +36,9 @@ version: 2.1
 #      - sonarcloud/scan
 
 jobs:
-  build_gcc_latest:
+  build_gcc_6:
     docker:
-      - image: gcc:latest
+      - image: gcc:6
     steps:
       - checkout
       - run:          
@@ -52,7 +52,7 @@ jobs:
           command: mkdir -p build && cd build          
       - run: 
           name: Build
-          command: 'build-wrapper-linux-x86/build-wrapper-linux-x86-64 --out-dir build_wrapper_output_directory g++ -o main main.cpp -std=c++17'
+          command: 'build-wrapper-linux-x86/build-wrapper-linux-x86-64 --out-dir build_wrapper_output_directory g++ -o main main.cpp -std=c++14'
       - run: ./main
       - sonarcloud/scan
 
@@ -69,5 +69,5 @@ workflows:
   version: 2
   build_and_test:
     jobs:
-      - build_gcc_latest:
+      - build_gcc_6:
           context: SonarCloud
